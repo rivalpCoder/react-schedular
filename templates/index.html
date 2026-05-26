@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DevOps Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+  <header>
+    <h1>🚀 DevOps Dashboard</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/api/pipelines" target="_blank">API: Pipelines</a>
+      <a href="/api/services" target="_blank">API: Services</a>
+      <a href="/api/team" target="_blank">API: Team</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- CI/CD Pipelines -->
+    <section>
+      <h2>CI/CD Pipelines</h2>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Branch</th><th>Status</th><th>Duration</th><th>Triggered By</th></tr>
+        </thead>
+        <tbody>
+          {% for p in pipelines %}
+          <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td><code>{{ p.branch }}</code></td>
+            <td><span class="badge {{ p.status }}">{{ p.status }}</span></td>
+            <td>{{ p.duration }}</td>
+            <td>{{ p.triggered_by }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Services -->
+    <section>
+      <h2>Services</h2>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Service</th><th>Environment</th><th>Status</th><th>Uptime</th><th>Region</th></tr>
+        </thead>
+        <tbody>
+          {% for s in services %}
+          <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.env }}</td>
+            <td><span class="badge {{ s.status }}">{{ s.status }}</span></td>
+            <td>{{ s.uptime }}</td>
+            <td>{{ s.region }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Team -->
+    <section>
+      <h2>Team</h2>
+      <div class="cards">
+        {% for member in team %}
+        <div class="card">
+          <h3>{{ member.name }}</h3>
+          <p class="role">{{ member.role }}</p>
+          <p>{{ member.email }}</p>
+          <div class="tools">
+            {% for tool in member.tools %}
+            <span class="tag">{{ tool }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>DevOps Dashboard &copy; 2024 | Running on localhost:5000</p>
+  </footer>
+</body>
+</html>
