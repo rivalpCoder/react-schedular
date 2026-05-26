@@ -1,6 +1,6 @@
-# DevOps Dashboard — React Frontend
+# React Dashboard App
 
-A React-based dashboard that displays real-time DevOps data — CI/CD pipelines, running services, and team members — fetched from a Flask backend API.
+A simple React app that shows Pipelines, Services, and Team data in a tabbed dark-themed UI.
 
 ---
 
@@ -9,126 +9,87 @@ A React-based dashboard that displays real-time DevOps data — CI/CD pipelines,
 ```
 react-frontend/
 ├── public/
-│   └── index.html          # HTML entry point
+│   └── index.html
 ├── src/
-│   ├── App.js              # Main component with all UI logic
-│   ├── App.css             # Dark theme styles
-│   └── index.js            # React DOM render entry
-├── .env                    # Port config (PORT=3000)
-└── package.json            # Dependencies and proxy config
+│   ├── App.js
+│   ├── App.css
+│   └── index.js
+├── .env
+└── package.json
 ```
 
 ---
 
-## Features
+## Requirements
 
-- **Pipelines Tab** — shows CI/CD pipeline name, branch, status, duration, and who triggered it
-- **Services Tab** — shows service name, environment, health status, uptime, and region
-- **Team Tab** — shows team member name, role, email, and tools they use
-- **Status Badges** — color-coded badges (green = healthy/success, red = failed/down, yellow = degraded)
-- **Loading & Error States** — handles API loading and failure gracefully
+Make sure you have installed:
 
----
-
-## Tech Stack
-
-| Technology     | Version  | Purpose                  |
-|----------------|----------|--------------------------|
-| React          | 18.2.0   | UI framework             |
-| React DOM      | 18.2.0   | DOM rendering            |
-| React Scripts  | 5.0.1    | Dev server & build tool  |
-| Flask (backend)| -        | REST API data source     |
-
----
-
-## Prerequisites
-
-Make sure you have these installed:
-
-- [Node.js](https://nodejs.org/) (v16 or above)
-- [Python](https://www.python.org/) (v3.8 or above)
+- [Node.js](https://nodejs.org/) v16 or above
 - npm (comes with Node.js)
 
----
-
-## Getting Started
-
-### 1. Start the Flask Backend
-
-The React app fetches data from the Flask API running on port `5000`. Start it first.
+Check your versions:
 
 ```bash
-cd devops-website
-python app.py
+node -v
+npm -v
 ```
 
-Flask will start at: `http://localhost:5000`
+---
 
-### 2. Install React Dependencies
+## How to Run
+
+### Step 1 — Go to the project folder
 
 ```bash
-cd devops-website/react-frontend
+cd react-frontend
+```
+
+### Step 2 — Install dependencies
+
+```bash
 npm install
 ```
 
-### 3. Start the React App
+### Step 3 — Start the app
 
 ```bash
 npm start
 ```
 
-React will start at: `http://localhost:3000`
-
----
-
-## API Endpoints Used
-
-| Endpoint         | Data Returned         |
-|------------------|-----------------------|
-| `/api/pipelines` | List of CI/CD pipelines |
-| `/api/services`  | List of running services |
-| `/api/team`      | List of team members  |
-
-> The `proxy` field in `package.json` is set to `http://127.0.0.1:5000`, so all `/api/*` requests are automatically forwarded to Flask — no CORS setup needed.
+App will open at: **http://localhost:3000**
 
 ---
 
 ## Available Scripts
 
-| Command         | Description                        |
-|-----------------|------------------------------------|
-| `npm start`     | Runs the app in development mode   |
-| `npm run build` | Builds the app for production      |
+| Command           | What it does                        |
+|-------------------|-------------------------------------|
+| `npm install`     | Installs all dependencies           |
+| `npm start`       | Starts the app on localhost:3000    |
+| `npm run build`   | Builds the app for production       |
 
 ---
 
-## Status Badge Colors
+## Common Errors & Fixes
 
-| Status    | Color  |
-|-----------|--------|
-| success   | Green  |
-| healthy   | Green  |
-| running   | Blue   |
-| pending   | Yellow |
-| degraded  | Yellow |
-| failed    | Red    |
-| down      | Red    |
+**npm cannot be loaded — scripts disabled**
 
----
-
-## Common Issues
-
-**ECONNREFUSED error in browser console**
-- Flask backend is not running. Start it with `python app.py` first.
-
-**npm cannot be loaded (PowerShell scripts disabled)**
-- Run this once in PowerShell as admin:
-  ```
-  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
-  ```
+Run this in PowerShell once:
+```
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+```
 
 **Port 3000 already in use**
-- Change the port in `react-frontend/.env`:
-  ```
-  PORT=3001
-  ```
+
+Open `.env` and change the port:
+```
+PORT=3001
+```
+
+**Blank screen or API errors**
+
+Make sure the Flask backend is running on port 5000:
+```bash
+cd ..
+python app.py
+```
